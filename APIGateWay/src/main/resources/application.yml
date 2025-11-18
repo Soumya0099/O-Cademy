@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: APIGateWay
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: books-route
+          uri: lb://ONLINEBOOKSTOREBOOKS
+          predicates:
+            - Path=/book/**  # Matches all variations
+#          filters:
+#            - StripPrefix=1         # Removes the first path segment (optional)
+
+        - id: customer-route
+          uri: lb://ONLINEBOOKSTORECUSTOMER
+          predicates:
+            - Path=/customer/**
+
+        - id: user-route
+          uri: lb://ONLINEBOOKSTOREUSER
+          predicates:
+            - Path=/user/**
+
+        - id: cart-route
+          uri: lb://ONLINEBOOKSTORECART
+          predicates:
+            - Path=/cart/**
+
+server:
+  port: 5252
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/		
