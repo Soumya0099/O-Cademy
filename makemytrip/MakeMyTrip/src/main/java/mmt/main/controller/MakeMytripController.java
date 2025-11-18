@@ -9,6 +9,7 @@ public class MakeMytripController
 	@GetMapping("/makemytrip")
 	public String displayname()
 	{
+		String s="Hello Every One";
 		return "Welcome To Make My Trip ......... ";
 	}
 
